@@ -1,3 +1,5 @@
+using ttc_project.methods;
+
 namespace ttc_project
 {
     public partial class Application : Form
@@ -32,7 +34,16 @@ namespace ttc_project
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            filters.thinningImage_withoutDMA(imageBitmap, convertedImage);
+            zhang_suen.thinningImage_withoutDMA(imageBitmap, convertedImage);
+            image = convertedImage;
+            convertedImagePictureBox.Image = convertedImage;
+        }
+
+        private void actionToThinningWithDMA(object sender, EventArgs e)
+        {
+            Bitmap convertedImage = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            zhang_suen.thinningImage_withDMA(imageBitmap, convertedImage);
             image = convertedImage;
             convertedImagePictureBox.Image = convertedImage;
         }
@@ -41,7 +52,7 @@ namespace ttc_project
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            filters.outlineExtractionImage_withoutDMA(imageBitmap, convertedImage);
+            outline.outlineExtractionImage_withoutDMA(imageBitmap, convertedImage);
             convertedImagePictureBox.Image = convertedImage;
         }
     }

@@ -76,6 +76,7 @@
             thinningButton_withDMA.Size = new Size(156, 30);
             thinningButton_withDMA.TabIndex = 3;
             thinningButton_withDMA.Text = "Afinamento com DMA";
+            thinningButton_withDMA.Click += actionToThinningWithDMA;
             // 
             // outlineExtractionButton_withoutDMA
             // 
