@@ -38,6 +38,7 @@
             minimunRectangleButton_withDMA = new Button();
             openImageButton = new Button();
             clearImageButton = new Button();
+            saveImageButton = new Button();
             ((System.ComponentModel.ISupportInitialize)baseImagePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)convertedImagePictureBox).BeginInit();
             SuspendLayout();
@@ -102,6 +103,7 @@
             minimunRectangleButton_withoutDMA.Size = new Size(207, 30);
             minimunRectangleButton_withoutDMA.TabIndex = 6;
             minimunRectangleButton_withoutDMA.Text = "Retângulo Mínimo sem DMA";
+            minimunRectangleButton_withoutDMA.Click += actionToMinRectangleWithoutDMA;
             // 
             // minimunRectangleButton_withDMA
             // 
@@ -129,11 +131,21 @@
             clearImageButton.Text = "Limpar Imagem";
             clearImageButton.Click += actionToClearImage;
             // 
+            // saveImageButton
+            // 
+            saveImageButton.Location = new Point(12, 603);
+            saveImageButton.Name = "saveImageButton";
+            saveImageButton.Size = new Size(127, 30);
+            saveImageButton.TabIndex = 10;
+            saveImageButton.Text = "Salvar Imagem";
+            saveImageButton.Click += actionToSaveImage;
+            // 
             // Application
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1622, 641);
+            ClientSize = new Size(1622, 674);
+            Controls.Add(saveImageButton);
             Controls.Add(openImageButton);
             Controls.Add(clearImageButton);
             Controls.Add(baseImagePictureBox);
@@ -150,5 +162,7 @@
             ((System.ComponentModel.ISupportInitialize)convertedImagePictureBox).EndInit();
             ResumeLayout(false);
         }
+
+        private Button saveImageButton;
     }
 }

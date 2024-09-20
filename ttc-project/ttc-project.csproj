@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="assets\images\" />
     <Folder Include="assets\docs\" />
+    <Folder Include="assets\images\error-cases\" />
   </ItemGroup>
 
 </Project>

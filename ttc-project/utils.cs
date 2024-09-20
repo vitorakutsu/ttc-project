@@ -2,22 +2,24 @@
 {
     class utils
     {
-        public class withoutDMA
+        public static bool isBlack(Color color)
         {
-            public static bool isBlack(Color color)
-            {
-                return color.R == 0 && color.G == 0 && color.B == 0;
-            }
+            return color.A == 255 && color.R == 0 && color.G == 0 && color.B == 0;
+        }
 
-            public static bool isWhite(Color color)
-            {
-                return color.R == 255 && color.G == 255 && color.B == 255;
-            }
+        public static bool isWhite(Color color)
+        {
+            return color.A == 255 && color.R == 255 && color.G == 255 && color.B == 255;
+        }
 
-            public static bool isRed(Color color)
-            {
-                return color.R == 255 && color.G == 0 && color.B == 0;
-            }
+        public static bool isBlue(Color color)
+        {
+            return color.A == 255 && color.R == 0 && color.G == 0 && color.B == 255;
+        }
+
+        public static bool isRed(Color color)
+        {
+            return color.A == 255 && color.R == 255 && color.G == 0 && color.B == 0;
         }
 
         public class withDMA

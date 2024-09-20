@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using ttc_project.methods;
 
 namespace ttc_project
@@ -30,6 +31,44 @@ namespace ttc_project
             baseImagePictureBox.Image = convertedImagePictureBox.Image = null;
         }
 
+        private void actionToSaveImage(object sender, EventArgs e)
+        {
+            if (convertedImagePictureBox.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem convertida disponível para salvar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp|GIF Image|*.gif";
+                saveFileDialog.Title = "Save Image File";
+                saveFileDialog.FileName = "converted_image";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string fileExtension = System.IO.Path.GetExtension(saveFileDialog.FileName).ToLower();
+
+                    ImageFormat format = ImageFormat.Png;
+                    if (fileExtension == ".jpg" || fileExtension == ".jpeg")
+                    {
+                        format = ImageFormat.Jpeg;
+                    }
+                    else if (fileExtension == ".bmp")
+                    {
+                        format = ImageFormat.Bmp;
+                    }
+                    else if (fileExtension == ".gif")
+                    {
+                        format = ImageFormat.Gif;
+                    }
+
+                    convertedImagePictureBox.Image.Save(saveFileDialog.FileName, format);
+                    MessageBox.Show("Imagem salva com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void actionToThinningWithoutDMA(object sender, EventArgs e)
         {
             Bitmap convertedImage = new Bitmap(image);
@@ -39,11 +78,18 @@ namespace ttc_project
             convertedImagePictureBox.Image = convertedImage;
         }
 
+        private void actionToMinRectangleWithoutDMA(object sender, EventArgs e)
+        {
+            Bitmap convertedImage = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            rectangle.minRectangleImage_withoutDMA(imageBitmap, convertedImage);
+            convertedImagePictureBox.Image = convertedImage;
+        }
+
         private void actionToThinningWithDMA(object sender, EventArgs e)
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            zhang_suen.thinningImage_withDMA(imageBitmap, convertedImage);
             image = convertedImage;
             convertedImagePictureBox.Image = convertedImage;
         }
