@@ -73,7 +73,7 @@ namespace ttc_project
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            zhang_suen.thinningImage_withoutDMA(imageBitmap, convertedImage);
+            thinning.thinningImage_withoutDMA(imageBitmap, convertedImage);
             image = convertedImage;
             convertedImagePictureBox.Image = convertedImage;
         }
@@ -82,7 +82,7 @@ namespace ttc_project
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            rectangle.minRectangleImage_withoutDMA(imageBitmap, convertedImage);
+            minimun_rectangle.minRectangleImage_withoutDMA(imageBitmap, convertedImage);
             convertedImagePictureBox.Image = convertedImage;
         }
 
@@ -98,7 +98,7 @@ namespace ttc_project
         {
             Bitmap convertedImage = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            outline.outlineExtractionImage_withoutDMA(imageBitmap, convertedImage);
+            contour_extraction.outlineExtractionImage_withoutDMA(imageBitmap, convertedImage);
             convertedImagePictureBox.Image = convertedImage;
         }
     }

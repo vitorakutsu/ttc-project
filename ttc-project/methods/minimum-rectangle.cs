@@ -1,14 +1,21 @@
-﻿namespace ttc_project.methods
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ttc_project.methods
 {
-    class outline
+    internal class minimun_rectangle
     {
-        public static void outlineExtractionImage_withoutDMA(Bitmap image, Bitmap convertedImage)
+        public static void minRectangleImage_withoutDMA(Bitmap image, Bitmap convertedImage)
         {
             int width = image.Width;
             int height = image.Height;
             bool test = true;
 
             List<(int x, int y)> toBeMarked = new List<(int x, int y)>();
+            List<Rectangle> boundingRectangles = new List<Rectangle>();
 
             for (int y = 0; y < height - 1 && test; y++)
             {
@@ -19,7 +26,6 @@
                         Console.WriteLine("Encontrou um ponto");
                         bool stop = false;
                         int i = x, j = y;
-                        int xMax = x, xMin = x, yMax = y, yMin = y;
 
                         bool isExtern = utils.isWhite(convertedImage.GetPixel(x, y - 1));
 
@@ -37,17 +43,26 @@
                             {
                                 convertedImage.SetPixel(a, b, Color.Red);
                             }
+
+                            Rectangle boundingRectangle = calculateBoundingRectangle(toBeMarked);
+                            boundingRectangles.Add(boundingRectangle);
+
                             toBeMarked.Clear();
                         }
                     }
                 }
             }
 
-            for(int y = 0; y < height - 1; y++)
+            foreach (var rect in boundingRectangles)
             {
-                for (int x = 0; x < width - 1; x++) 
+                drawRectangle(convertedImage, rect, Color.Blue);
+            }
+
+            for (int y = 0; y < height - 1; y++)
+            {
+                for (int x = 0; x < width - 1; x++)
                 {
-                    if (!utils.isRed(convertedImage.GetPixel(x, y))) convertedImage.SetPixel(x, y, Color.FromArgb(255, 255, 255));
+                    if (!utils.isRed(convertedImage.GetPixel(x, y)) && !utils.isBlue(convertedImage.GetPixel(x, y))) convertedImage.SetPixel(x, y, Color.FromArgb(255, 255, 255));
                 }
             }
 
@@ -59,6 +74,43 @@
                 }
             }
 
+            for (int y = 0; y < height - 1; y++)
+            {
+                for (int x = 0; x < width - 1; x++)
+                {
+                    if (utils.isBlue(convertedImage.GetPixel(x, y))) convertedImage.SetPixel(x, y, Color.Red);
+                }
+            }
+        }
+
+        private static Rectangle calculateBoundingRectangle(List<(int x, int y)> points)
+        {
+            int xMin = points.Min(p => p.x);
+            int xMax = points.Max(p => p.x);
+            int yMin = points.Min(p => p.y);
+            int yMax = points.Max(p => p.y);
+
+            return new Rectangle(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+        }
+
+        private static void drawRectangle(Bitmap image, Rectangle rect, Color color)
+        {
+            for (int i = rect.Left; i <= rect.Right; i++)
+            {
+                image.SetPixel(i, rect.Top, color);
+                image.SetPixel(i, rect.Bottom, color);
+            }
+
+            for (int j = rect.Top; j <= rect.Bottom; j++)
+            {
+                image.SetPixel(rect.Left, j, color);
+                image.SetPixel(rect.Right, j, color);
+            }
+        }
+
+        private static void makeMinRectangle (Bitmap image, int xMin, int xMax, int yMin, int yMax)
+        {
+            
         }
 
         private static Color[] getNeighbours(Bitmap image, int x, int y)

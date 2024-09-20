@@ -2,7 +2,7 @@
 
 namespace ttc_project.methods
 {
-    class zhang_suen
+    class thinning
     {
         public static void thinningImage_withoutDMA(Bitmap image, Bitmap convertedImage)
         {
